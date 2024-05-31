@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="activite-produit.component.css" rel="stylesheet"> <!-- Lien vers votre fichier CSS -->
+  <title>Création d'un Couple Activité Produit </title>
+</head>
+<body>
+<div>
+  <br>
+  <h3>Création d'un Couple Activité Produit</h3>
+
+  <div class="custom-alert alert alert-danger" role="alert">
+    Avant de procéder à l'ajout d'un code activité, vérifiez si le code n'est pas déjà existant dans PIDI en suivant les étapes suivantes :
+  </div>
+  <div class="custom-alert alert alert-danger" role="alert">
+    Si le code n'existe pas, vous pouvez passer à une autre étape. En revanche, si le code activité est déjà existant, veuillez contacter le métier pour vérification et clarification du besoin.
+    Si le métier signale un besoin de modification, vous pouvez passer à l'étape "Modification d'un code activité".
+
+  </div>
+</div>
+<form>
+    <span class="border-0">
+    <nav class="p-3">
+    <div style="display: inline-block;">
+      <label for="etlCode">code Activité :</label>
+      <input type="text" id="etlCode" name="etlCode"style="width: 120px">
+    </div>
+    <div style="display: inline-block; margin-left: 20px;">
+      <label for="siFournisseur">libellé Activité : </label>
+      <input type="text" id="siFournisseur" name="siFournisseur" style="width: 120px">
+    </div>
+    <br><br>
+
+    <button type="button" class="btn btn-orange me-2" onclick="generateQuery()">Générer Requête</button>
+    <br><br>
+
+  </nav></span>
+</form>
+
+</body>
+
+</html>
+
+

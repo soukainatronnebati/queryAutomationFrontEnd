@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="add-activite.component.css" rel="stylesheet"> <!-- Lien vers votre fichier CSS -->
+  <title>Ajouter un nouveau produit</title>
+</head>
+<body>
+<div>
+  <br>
+  <h2>Ajouter un nouveau Code Activité </h2>
+  <div class="custom-alert alert alert-warning" role="alert">
+    Avant de procéder à l'ajout d'un code activité, vérifiez si le code n'est pas déjà existant dans PIDI en exécutent la premiére requéte de Guide :
+  </div>
+  <div class="custom-alert alert alert-danger" role="alert">
+    Si le code n'existe pas, vous pouvez passer à une autre étape. En revanche, si le code activité est déjà existant, veuillez contacter le métier pour vérification et clarification du besoin.
+    Si le métier signale un besoin de modification, vous pouvez passer à l'étape "Modification d'un code activité".
+
+  </div>
+</div>
+<form>
+    <span class="border-0">
+    <nav class="p-3">
+    <div style="display: inline-block;">
+      <label for="actCode">Code Activité:</label>
+      <input type="text" id="actCode" name="actCode" style="width: 120px" [(ngModel)]="actCode">
+    </div>
+    <div style="display: inline-block; margin-left: 20px;">
+      <label for="siFournisseur">Libellé Activité : </label>
+      <input type="text" id="siFournisseur" name="siFournisseur" style="width: 120px">
+    </div>
+    <br><br>
+    <div class="form-group">
+      <label for="choix">PRO_IS_FIBRE :</label>
+      <select id="choix" name="choix" style="width: 60px; margin-right: 10px;">
+        <option value="1">1</option>
+        <option value="0">0</option>
+      </select>
+
+      <label for="analyse">PRO_ANALYSE_ESSAI :</label>
+      <select id="analyse" name="analyse" style="width: 60px;">
+        <option value="1">1</option>
+        <option value="0">0</option>
+      </select>
+
+      <label for="controle">PRO_CONTROLE_ESSAI :</label>
+      <select id="controle" name="controle" style="width: 60px; margin-right: 10px;">
+        <option value="1">1</option>
+        <option value="0">0</option>
+      </select>
+    </div>
+    <br>
+    <div class="form-group">
+      <label for="hautdebit">PRO_CONTROLE_ESSAI_HAUT_DEBIT :</label>
+      <select id="hautdebit" name="hautdebit" style="width: 60px; margin-right: 10px;">
+        <option value="1">1</option>
+        <option value="0">0</option>
+      </select>
+
+      <label for="masquage">PRO_MASQUAGE_PRIX_CLIENT :</label>
+      <select id="masquage" name="masquage" style="width: 60px;">
+        <option value="1">1</option>
+        <option value="0">0</option>
+      </select>
+    </div>
+    <br><br>
+    <button type="button" class="btn btn-orange me-2" (click)="generateQuery()">Générer Requête</button>
+     <button type="button" class="btn btn-secondary" (click)="extractQueries()">Exporter en CSV</button>
+      <br><br>
+  </nav></span>
+</form>
+<div class="container">
+  <div *ngIf="queries.length > 0">
+    <h3 class="text-center">Guide d'utilisation </h3>
+    <div class="table-responsive">
+      <table class="table table-bordered mx-auto" style="width: 80%;">
+        <thead class="thead-light">
+        <tr>
+          <th>Type</th>
+          <th>Champ</th>
+          <th>Requête</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let query of queries; let i = index">
+          <td>
+            <span *ngIf="!query.editMode">{{ query.type }}</span>
+            <input *ngIf="query.editMode" type="text" [(ngModel)]="query.type">
+          </td>
+          <td>
+            <span *ngIf="!query.editMode">{{ query.champ }}</span>
+            <input *ngIf="query.editMode" type="text" [(ngModel)]="query.champ">
+          </td>
+          <td *ngIf="!query.editMode; else editMode">
+            <span [innerHTML]="highlightSQL(query.requete)"></span>
+          </td>
+          <ng-template #editMode>
+            <input type="text" [(ngModel)]="query.requete" [ngStyle]="{'width.px': query.requete.length * 8}" />
+          </ng-template>
+          <td>
+            <div class="d-flex align-items-center">
+              <button type="button" class="btn btn-primary me-2" (click)="copyQuery(query.requete)">
+                <i class="bi bi-copy"></i>
+              </button>
+              <button type="button" class="btn btn-success" (click)="toggleEditMode(i)">
+                <i *ngIf="queries[i].editMode" class="bi bi-check"></i>
+                <i *ngIf="!queries[i].editMode" class="bi bi-pencil"></i>
+              </button>
+              <button type="button" class="btn btn-danger" (click)="deleteQuery(i)">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</div>
+</body>
+</html>
