@@ -1,0 +1,84 @@
+<div>
+  <h2>Créer un code Fournisseur</h2>
+  <!-- Bouton pour importer le fichier Excel -->
+  <input type="file" (change)="ReadExcel($event)">
+  <br><br>
+  <form>
+    <div style="display: inline-block;">
+      <label for="etlCode">ETL_CODE:&nbsp;&nbsp;</label>
+      <input type="text" id="etlCode" [(ngModel)]="etlCode" name="etlCode" readonly>
+    </div>
+    <div style="display: inline-block; margin-left: 20px;">
+      <label for="siFournisseur">SI Fournisseur:&nbsp;&nbsp;</label>
+      <input type="text" id="siFournisseur" [(ngModel)]="siFournisseur"  name="siFournisseur" readonly>
+    </div>
+    <br><br>
+    <label [for]="generateUniqueId()">ENT_CODE:</label>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>ENT_ID:</span>
+    <div *ngFor="let code of entCode">
+
+      <input type="text" [id]="generateUniqueId()" [value]="code" readonly>
+      &nbsp;&nbsp;&nbsp;
+      <input type="text" [value]="entIdMap[code]" readonly>
+    </div>
+    <br><br>
+    <div class="d-flex align-items-center">
+      <button type="button" class="btn btn-primary me-2" (click)="generateQuery()">Générer Requête</button>
+      <button type="button" class="btn btn-success me-2" (click)="extractQueries()">Extraire Requêtes</button>
+    </div>
+  </form>
+</div>
+
+<div class="container">
+  <div *ngIf="queries.length > 0">
+    <h3 class="text-center">Guide d'utilisation </h3>
+    <div class="table-responsive">
+      <table class="table table-bordered mx-auto" style="width: 80%;">
+        <thead class="thead-light">
+        <tr>
+          <th>Type</th>
+          <th>Champ</th>
+          <th>Requête</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let query of queries; let i = index">
+          <td>
+            <span *ngIf="!query.editMode">{{ query.type }}</span>
+            <input *ngIf="query.editMode" type="text" [(ngModel)]="query.type">
+          </td>
+          <td>
+            <span *ngIf="!query.editMode">{{ query.champ }}</span>
+            <input *ngIf="query.editMode" type="text" [(ngModel)]="query.champ">
+          </td>
+          <td *ngIf="!query.editMode; else editMode">
+            <span [innerHTML]="highlightSQL(query.requete)"></span>
+          </td>
+          <ng-template #editMode>
+            <input type="text" [(ngModel)]="query.requete" [ngStyle]="{'width.px': query.requete.length * 8}" />
+          </ng-template>
+          <td>
+            <div class="d-flex align-items-center">
+              <button type="button" class="btn btn-primary me-2" (click)="copyQuery(query.requete)">
+                Copier
+              </button>
+              <button type="button" class="btn btn-success" (click)="toggleEditMode(i)">
+                {{ queries[i].editMode ? 'Ok' : 'Modifier' }}
+              </button>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div *ngFor="let query of queries.slice((currentPage-1)*itemsPerPage, currentPage*itemsPerPage)">
+        <!-- Affichage des données -->
+      </div>
+
+
+
+    </div>
+
+  </div>
+</div>

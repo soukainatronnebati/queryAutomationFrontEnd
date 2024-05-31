@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="produits.component.css" rel="stylesheet"> <!-- Lien vers votre fichier CSS -->
+  <title>Liste des produits</title>
+</head>
+<body>
+<div>
+<nav class="p-3">
+  <ul class="nav nav-pills">
+    <li *ngFor="let action of actions">
+      <button
+        routerLink="{{action.route}}"
+        [class]="action==currentAction
+        ?'btn btn-success ms-1':'btn btn-outline-success ms-1'"
+      >
+        {{action.title}}
+        <i class="bi bi-{{action.icon}}"></i>
+      </button>
+    </li>
+  </ul>
+</nav>
+
+  <h3>Liste des produits</h3>
+  <br><br>
+<!--
+<script>
+  function afficherCodesReleves() {
+    var domaine = document.getElementById("domaine").value;
+    var structureCodeReleve = document.getElementById("structureCodeReleve");
+
+    // Réinitialiser la structure du code de relevé
+    structureCodeReleve.innerHTML = "";
+
+    // Ajouter la structure du code de relevé en fonction du domaine sélectionné
+    switch (domaine) {
+      case "maintenance":
+        structureCodeReleve.innerHTML = "<label>Structure du code de relevé pour Maintenance :</label><br>" +
+          "<ul>" +
+          "<li>\"ABS\" - Absent avisé</li>" +
+          "<li>\"ANC\" - Annulation commande par client final</li>" +
+          "<li>\"ANN\" - Annulation de la commande</li>" +
+          "<li>\"DEF\" - Intervention définitive</li>" +
+          "<li>\"DFA\" - Defaut sur le support</li>" +
+          "<li>\"DIA\" - Diagnostic Initial Affiné</li>" +
+          "</ul>";
+        break;
+      // Ajouter d'autres cas pour les autres domaines ici
+    }
+  }
+
+  function afficherComposant() {
+    document.getElementById("autreComposant").style.display = "block";
+  }
+
+  // Fonction pour naviguer vers une autre page Angular
+</script>
+-->
+  <router-outlet></router-outlet>
+
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

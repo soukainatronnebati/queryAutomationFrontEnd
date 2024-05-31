@@ -1,0 +1,52 @@
+<br>
+<br>
+<h2>Habiliter un (des) utilisateur(s) Orange à une ou plusieurs ou toutes les entités PIDI</h2>
+<div>
+  <input type="file" (change)="onFileChange($event)" />
+</div>
+<div *ngIf="CUIDs.length">
+  <form>
+    <div class="form-row">
+      <label for="cuidSelect">CUID :</label>
+      <select id="cuidSelect" [(ngModel)]="selectedCUID" name="cuidSelect" (change)="onCUIDChange()">
+        <option *ngFor="let cuid of CUIDs" [value]="cuid">{{ cuid }}</option>
+      </select>
+      <input type="text" #newCUIDInput placeholder="Nouveau CUID" />
+      <button type="button" (click)="addNewCUID(newCUIDInput.value)">
+        <i class="bi bi-person-add"></i>
+      </button>
+    </div>
+    <div class="form-row">
+      <label for="entityInput">Entité(s) à ajouter :</label>
+      <input type="text" id="entityInput" [(ngModel)]="selectedEntity" name="entityInput" placeholder="Entrez les entités séparées par des virgules" />
+    </div>
+    <button type="button" (click)="generateQuery()">Générer Requête</button>
+    <br>
+    <button type="button" (click)="exportAllQueries()">Exporter Toutes les Requêtes</button>
+  </form>
+</div>
+
+
+<div *ngIf="queries.length">
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>Requête</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let queryObj of queries; let i = index">
+      <td [innerHTML]="highlightSQL(queryObj.query)">
+        <ng-container *ngIf="!queryObj.editMode">{{ queryObj.query }}</ng-container>
+        <input *ngIf="queryObj.editMode" type="text" [(ngModel)]="queryObj.query" />
+      </td>
+      <td>
+        <button *ngIf="!queryObj.editMode" (click)="editQuery(i)">Editer</button>
+        <button *ngIf="queryObj.editMode" (click)="saveQuery(i)">OK</button>
+        <button (click)="copyQuery(queryObj.query)">Copier</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,21 @@
+<br><br>
+<div class="d-inline-flex">
+  <h2>domaine : </h2>
+<div class="btn-group">
+  <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+    selectionne un domaine
+  </button>
+  <ul class="dropdown-menu" >
+    @for (dom of Domaines; track dom.id){
+    <li><p class="dropdown-item" (click)="ShowCode(dom.id)">{{dom.name}}</p></li>
+    }
+
+  </ul>
+</div>
+
+
+  <div id="structureCodeReleve" >
+
+  </div>
+
+</div>

@@ -1,0 +1,37 @@
+<br><br>
+<div style="text-align: center;">
+  <h3 style="color: orange; text-decoration: underline; font-family: 'Arial', sans-serif;">Formulaire Modifier email comptes SIU Fournisseur</h3>
+</div>
+
+<br><br>
+<div style="text-align: center;">
+  <input type="file" style="display: inline-block;" (change)="ReadExcel($event)" multiple>
+</div>
+
+
+<br><br><br><br>
+<div style="width: 50%; margin-left: 20%;">
+
+  <h3 style="text-align:center;">Liste des SIUD avec leurs emails</h3>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">SIUD</th>
+      <th scope="col">Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of ExcelData">
+
+      <td>{{ data.SIUD }}</td>
+      <td>{{ data.Email }}</td>
+    </tr>
+    </tbody>
+  </table>
+  <div style="text-align: center;">
+  <button (click)="exportToCSV()">Exporter vers CSV</button>
+    <br><br><button (click)="generateUpdateQueries()">Requête de modification</button>
+    <br><br><button (click)="generateSelectQueries()">Requête de select</button>
+  </div>
+
+</div>

@@ -1,0 +1,33 @@
+.custom-alert {
+  max-width: 1000px; /* Ajustez cette valeur selon vos besoins */
+  margin: 20px auto; /* Centre l'alerte horizontalement */
+  margin-left: 10px;
+  font-weight: bold; /* Met le texte en gras */
+}
+.form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  margin-right: 10px;
+}
+
+.form-group select {
+  margin-right: 20px;
+}
+.btn-orange {
+  background-color: orange;
+  border-color: orange;
+  color: white;
+  float: left; /* Déplacer le bouton vers la droite */
+  margin-left: 400px; /* Ajouter une marge à droite pour espacer le bouton */
+}
+
+.btn-orange:hover {
+  background-color: darkorange;
+  border-color: darkorange;
+
+}
+
